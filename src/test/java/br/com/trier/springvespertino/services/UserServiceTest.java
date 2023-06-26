@@ -27,9 +27,9 @@ public class UserServiceTest extends BaseTest{
 	@DisplayName("Teste buscar usuário por ID")
 	@Sql({"classpath:/resources/sqls/usuario.sql"})
 	void findByIdTest() {
-		var usuario = userService.findById(1);
+		var usuario = userService.findById(3);
 		assertNotNull(usuario);
-		assertEquals(1, usuario.getId());
+		assertEquals(3, usuario.getId());
 		assertEquals("User 1", usuario.getName());
 		assertEquals("email1", usuario.getEmail());
 		assertEquals("senha1", usuario.getPassword());
@@ -47,7 +47,7 @@ public class UserServiceTest extends BaseTest{
 	@Test
 	@DisplayName("Teste inserir usuário")
 	void insertUserTest() {
-		User usuario = new User(null, "insert", "insert", "insert" );
+		User usuario = new User(null, "insert", "insert", "insert", "ADMIN" );
 		userService.insert(usuario);
 		usuario = userService.findById(1);
 		assertEquals(1, usuario.getId());
@@ -60,7 +60,7 @@ public class UserServiceTest extends BaseTest{
 	@DisplayName("Teste inserir usuário com e-mail duplicado")
 	@Sql({"classpath:/resources/sqls/usuario.sql"})
 	void insertUserDuplicatedEmailTest() {
-		User usuario = new User(null, "insert", "email1", "insert" );
+		User usuario = new User(null, "insert", "email1", "insert", "ADMIN" );
 		var exception = assertThrows(
 				IntegrityViolation.class, () -> userService.insert(usuario));
 		assertEquals("Email já existente: email1", exception.getMessage());
@@ -70,10 +70,10 @@ public class UserServiceTest extends BaseTest{
 	@DisplayName("Teste remover usuário")
 	@Sql({"classpath:/resources/sqls/usuario.sql"})
 	void removeUserTest() {
-		userService.delete(1);
+		userService.delete(3);
 		List<User> lista = userService.listAll();
 		assertEquals(1, lista.size());
-		assertEquals(2, lista.get(0).getId());
+		assertEquals(4, lista.get(0).getId());
 	}
 	
 	@Test
@@ -106,11 +106,11 @@ public class UserServiceTest extends BaseTest{
 	@DisplayName("Teste alterar usuário")
 	@Sql({"classpath:/resources/sqls/usuario.sql"})
 	void updateUsersTest() {
-		var usuario = userService.findById(1);
+		var usuario = userService.findById(3);
 		assertEquals("User 1", usuario.getName());
-		var usuarioAltera = new User(1,"altera", "altera", "altera");
+		var usuarioAltera = new User(3,"altera", "altera", "altera", "ADMIN");
 		userService.update(usuarioAltera);
-		usuario = userService.findById(1);
+		usuario = userService.findById(3);
 		assertEquals("altera", usuario.getName());
 	}
 	
@@ -118,7 +118,7 @@ public class UserServiceTest extends BaseTest{
 	@DisplayName("Teste alterar usuário com e-mail duplicado")
 	@Sql({"classpath:/resources/sqls/usuario.sql"})
 	void updateUsersDuplicatedEmailTest() {
-		var usuarioAltera = new User(1,"altera", "email2", "altera");
+		var usuarioAltera = new User(3,"altera", "email2", "altera", "ADMIN");
 		var exception = assertThrows(
 				IntegrityViolation.class, () -> userService.update(usuarioAltera));
 		assertEquals("Email já existente: email2", exception.getMessage());
@@ -127,7 +127,7 @@ public class UserServiceTest extends BaseTest{
 	@Test
 	@DisplayName("Teste alterar usuário inexistente")
 	void updateUsersNonExistsTest() {
-		var usuarioAltera = new User(1,"altera", "altera", "altera");
+		var usuarioAltera = new User(1,"altera", "altera", "altera", "ADMIN");
 		var exception = assertThrows(
 				ObjectNotFound.class, () -> userService.update(usuarioAltera));
 		assertEquals("O usuário 1 não existe", exception.getMessage());

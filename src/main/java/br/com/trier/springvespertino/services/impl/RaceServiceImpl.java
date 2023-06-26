@@ -20,7 +20,7 @@ public class RaceServiceImpl implements RaceService {
 	@Autowired
 	private RaceRepository repository;
 
-	private void validateTace(Race race) {
+	private void validateRace(Race race) {
 		if (race.getChampionship() == null) {
 			throw new IntegrityViolation("Campeonato não pode ser nulo");
 		}
@@ -42,20 +42,23 @@ public class RaceServiceImpl implements RaceService {
 
 	@Override
 	public Race insert(Race race) {
-		validateTace(race);
+		validateRace(race);
 		return repository.save(race);
 	}
 
 	@Override
 	public List<Race> listAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Race> lista = repository.findAll();
+		if(lista.isEmpty()) {
+			throw new ObjectNotFound("Não existem corridas cadastradas");
+		}
+		return lista;
 	}
 
 	@Override
 	public Race update(Race race) {
 		findById(race.getId());
-		validateTace(race);
+		validateRace(race);
 		return repository.save(race);
 	}
 
