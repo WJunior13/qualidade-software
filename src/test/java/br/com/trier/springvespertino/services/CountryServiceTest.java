@@ -22,7 +22,7 @@ public class CountryServiceTest extends BaseTest {
     CountryService service;
 
     @Test
-    @Sql({"/sqls/campeonato.sql"})
+    @Sql({"/sqls/pais.sql"})
     void deveBuscarPaisPorId() {
         Country country = service.findById(2);
         assertNotNull(country);
@@ -32,7 +32,7 @@ public class CountryServiceTest extends BaseTest {
     }
 
     @Test
-    @Sql({"/sqls/campeonato.sql"})
+    @Sql({"/sqls/pais.sql"})
     void deveRetornarPaises() {
         List<Country> countries = service.listAll();
         countries = countries.stream()
@@ -40,7 +40,7 @@ public class CountryServiceTest extends BaseTest {
                 .collect(Collectors.toList());
         assertEquals(2, countries.size());
         assertEquals("Brazil", countries.get(0).getName());
-        assertEquals("France", countries.get(1).getName());
+        assertEquals("Japan", countries.get(1).getName());
 
     }
 
@@ -53,7 +53,7 @@ public class CountryServiceTest extends BaseTest {
     }
 
     @Test
-    @Sql({"/sqls/campeonato.sql"})
+    @Sql({"/sqls/pais.sql"})
     void deveAlterarPais() {
         Country country = service.findById(2);
         assertEquals("Brazil", country.getName());
@@ -63,7 +63,7 @@ public class CountryServiceTest extends BaseTest {
     }
 
     @Test
-    @Sql({"/sqls/campeonato.sql"})
+    @Sql({"/sqls/pais.sql"})
     void deveRemoverPais() {
         service.delete(2);
         List<Country> lista = service.listAll();
@@ -71,7 +71,7 @@ public class CountryServiceTest extends BaseTest {
         assertEquals(3, lista.get(0).getId());
     }
     @Test
-    @Sql({"/sqls/campeonato.sql"})
+    @Sql({"/sqls/pais.sql"})
     void deveRetornarPaisNome() {
         List<Country> countries = service.findByNomeEqualsIgnoreCase("brazil");
         assertEquals(1,countries.size());

@@ -1,7 +1,11 @@
 package br.com.trier.springvespertino;
 
 import br.com.trier.springvespertino.services.ChampionshipService;
+import br.com.trier.springvespertino.services.CountryService;
+import br.com.trier.springvespertino.services.PilotRaceService;
 import br.com.trier.springvespertino.services.impl.ChampionshipServiceImpl;
+import br.com.trier.springvespertino.services.impl.CountryServiceImpl;
+import br.com.trier.springvespertino.services.impl.PilotRaceServiceImpl;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +27,16 @@ public class BaseTest {
 	@Bean
 	public ChampionshipService championshipService() {
 		return new ChampionshipServiceImpl();
+	}
+
+	@Bean
+	public CountryService countryService() {
+		return new CountryServiceImpl();
+	}
+
+	@Bean
+	public PilotRaceService pilotRaceService() {
+		return new PilotRaceServiceImpl();
 	}
 
 }
