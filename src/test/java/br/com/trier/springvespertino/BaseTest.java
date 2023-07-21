@@ -1,18 +1,11 @@
 package br.com.trier.springvespertino;
 
-import br.com.trier.springvespertino.services.ChampionshipService;
-import br.com.trier.springvespertino.services.CountryService;
-import br.com.trier.springvespertino.services.PilotRaceService;
-import br.com.trier.springvespertino.services.impl.ChampionshipServiceImpl;
-import br.com.trier.springvespertino.services.impl.CountryServiceImpl;
-import br.com.trier.springvespertino.services.impl.PilotRaceServiceImpl;
+import br.com.trier.springvespertino.services.*;
+import br.com.trier.springvespertino.services.impl.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
-
-import br.com.trier.springvespertino.services.UserService;
-import br.com.trier.springvespertino.services.impl.UserServiceImpl;
 
 @TestConfiguration
 @SpringBootTest
@@ -37,6 +30,21 @@ public class BaseTest {
 	@Bean
 	public PilotRaceService pilotRaceService() {
 		return new PilotRaceServiceImpl();
+	}
+
+	@Bean
+	public PilotService pilotService() {
+		return new PilotServiceImpl();
+	}
+
+	@Bean
+	public RaceService raceService() {
+		return new RaceServiceImpl();
+	}
+
+	@Bean
+	public SpeedwayService speedwayService() {
+		return new SpeedwayServiceImpl();
 	}
 
 }
